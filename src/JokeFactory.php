@@ -2,20 +2,20 @@
 
 namespace Kathv\ChuckNorrisJokes;
 
-class JokeFactory {
-    protected $jokes = [
-        'Joke 1 ',
-        'Joke 2 ',
-        'Joke 3 ',
-    ];
+use GuzzleHttp\Client;
 
-    public function __construct(array $jokes = null) {
-        if ($jokes) {
-            $this->jokes = $jokes;
-        }
+class JokeFactory {
+    const API_ENDPOINT = 'http://api.icndb.com/jokes/random';
+
+    protected $client;
+
+    public function __construct(Client $client = null) {
+        $this->client = $client ?: new Client(); 
     }
 
     public function getRandomJoke() {
-       return $this->jokes[array_rand($this->jokes)];
+        $response = $this->client->get(self::API_ENDPOINT);
+        $joke = json_decode($response->getBody()->getContents());
+        return $joke->value->joke;
     }
 }
