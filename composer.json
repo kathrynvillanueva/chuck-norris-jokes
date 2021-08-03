@@ -20,9 +20,20 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "orchestra/testbench": "~3.0"
     },
     "require": {
         "guzzlehttp/guzzle": "^7.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kathv\\ChuckNorrisJokes\\ChuckNorrisJokesServiceProvider"
+            ],
+            "aliases": {
+                "ChuckNorris": "Kathv\\ChuckNorrisJokes\\Facades\\ChuckNorris"
+            }
+        }
     }
 }
